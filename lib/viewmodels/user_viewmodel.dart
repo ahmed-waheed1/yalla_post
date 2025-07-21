@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/user.dart';
 
-// User state class
 class UserState {
   final User user;
   final bool isLoading;
@@ -27,7 +26,6 @@ class UserState {
   }
 }
 
-// User ViewModel
 class UserViewModel extends StateNotifier<UserState> {
   UserViewModel() : super(const UserState());
 
@@ -63,7 +61,6 @@ class UserViewModel extends StateNotifier<UserState> {
   }
 }
 
-// Provider for User ViewModel
 final userViewModelProvider = StateNotifierProvider<UserViewModel, UserState>((
   ref,
 ) {

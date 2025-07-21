@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/post.dart';
 import '../services/favorite_service.dart';
 
-// Favorites state class
 class FavoritesState {
   final List<Post> favorites;
   final bool isLoading;
@@ -28,7 +27,6 @@ class FavoritesState {
   }
 }
 
-// Favorites ViewModel
 class FavoritesViewModel extends StateNotifier<FavoritesState> {
   FavoritesViewModel() : super(const FavoritesState()) {
     _loadFavorites();
@@ -52,13 +50,11 @@ class FavoritesViewModel extends StateNotifier<FavoritesState> {
   Future<void> addFavorite(Post post) async {
     if (isFavorite(post)) return;
 
-    // Optimistic update
     state = state.copyWith(favorites: [...state.favorites, post]);
 
     try {
       await FavoriteService.addFavorite(post);
     } catch (e) {
-      // Rollback on error
       state = state.copyWith(
         favorites: state.favorites.where((p) => p.id != post.id).toList(),
         errorMessage: e.toString(),
@@ -69,7 +65,6 @@ class FavoritesViewModel extends StateNotifier<FavoritesState> {
   Future<void> removeFavorite(Post post) async {
     final previousFavorites = state.favorites;
 
-    // Optimistic update
     state = state.copyWith(
       favorites: state.favorites.where((p) => p.id != post.id).toList(),
     );
@@ -77,7 +72,6 @@ class FavoritesViewModel extends StateNotifier<FavoritesState> {
     try {
       await FavoriteService.removeFavorite(post);
     } catch (e) {
-      // Rollback on error
       state = state.copyWith(
         favorites: previousFavorites,
         errorMessage: e.toString(),
@@ -112,13 +106,11 @@ class FavoritesViewModel extends StateNotifier<FavoritesState> {
   Future<void> clearAllFavorites() async {
     final previousFavorites = state.favorites;
 
-    // Optimistic update
     state = state.copyWith(favorites: []);
 
     try {
       await FavoriteService.saveFavorites([]);
     } catch (e) {
-      // Rollback on error
       state = state.copyWith(
         favorites: previousFavorites,
         errorMessage: e.toString(),
@@ -127,7 +119,6 @@ class FavoritesViewModel extends StateNotifier<FavoritesState> {
   }
 }
 
-// Provider for Favorites ViewModel
 final favoritesViewModelProvider =
     StateNotifierProvider<FavoritesViewModel, FavoritesState>((ref) {
       return FavoritesViewModel();

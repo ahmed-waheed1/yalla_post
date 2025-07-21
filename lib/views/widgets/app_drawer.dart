@@ -84,7 +84,6 @@ class AppDrawer extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Name with better typography
                 Text(
                   userState.user.name,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -94,7 +93,6 @@ class AppDrawer extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                // Title with badge-like container
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
@@ -137,8 +135,6 @@ class AppDrawer extends ConsumerWidget {
               ],
             ),
           ),
-
-          // Menu Items with better styling
           Expanded(
             child: Container(
               color: Colors.grey.shade50,
@@ -184,8 +180,6 @@ class AppDrawer extends ConsumerWidget {
                       Navigator.pushNamed(context, '/profile');
                     },
                   ),
-
-                  // Divider
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,

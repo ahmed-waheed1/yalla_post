@@ -141,7 +141,6 @@ class ProfilePage extends ConsumerWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Action Cards
                 _buildActionCard(
                   context,
                   'Favorite Posts',

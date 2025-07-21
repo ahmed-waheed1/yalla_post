@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/post.dart';
 import '../services/post_service.dart';
 
-// Enum for loading states
 enum PostsLoadingState { initial, loading, loaded, error }
 
-// Posts state class
 class PostsState {
   final List<Post> posts;
   final PostsLoadingState loadingState;
@@ -31,7 +29,6 @@ class PostsState {
   }
 }
 
-// Posts ViewModel
 class PostsViewModel extends StateNotifier<PostsState> {
   PostsViewModel() : super(const PostsState());
 
@@ -39,7 +36,6 @@ class PostsViewModel extends StateNotifier<PostsState> {
     state = state.copyWith(loadingState: PostsLoadingState.loading);
 
     try {
-      // Simulate network delay
       await Future.delayed(const Duration(seconds: 2));
 
       final posts = await PostService.fetchPosts();
@@ -81,11 +77,9 @@ class PostsViewModel extends StateNotifier<PostsState> {
   }
 }
 
-// Provider for Posts ViewModel
 final postsViewModelProvider =
     StateNotifierProvider<PostsViewModel, PostsState>((ref) {
       final viewModel = PostsViewModel();
-      // Auto-load posts when provider is created
       Future.microtask(() => viewModel.loadPosts());
       return viewModel;
     });
